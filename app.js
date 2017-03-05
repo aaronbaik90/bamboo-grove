@@ -1,3 +1,5 @@
+const express = require('express');
+const app = express();
 
 app.get('/webhook', function (req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -8,4 +10,8 @@ app.get('/webhook', function (req, res) {
     console.error('Failed validation');
     res.sendStatus(403);
   } 
+});
+
+app.listen(8080, function() {
+  console.log('listening at 8080');
 });

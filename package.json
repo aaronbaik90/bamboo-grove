@@ -1,0 +1,11 @@
+{
+  "name" : "bamboo-grove",
+  "description" : "bamboo-grove app",
+  "version" : "1.0.0",
+  "engines" : {
+    "node": "6.10.0"
+  },
+  "scripts" : {
+    "start" : "node app.js"
+  }
+}
