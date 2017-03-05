@@ -1,11 +1,14 @@
 {
-  "name" : "bamboo-grove",
-  "description" : "bamboo-grove app",
-  "version" : "1.0.0",
-  "engines" : {
+  "name": "bamboo-grove",
+  "description": "bamboo-grove app",
+  "version": "1.0.0",
+  "engines": {
     "node": "6.10.0"
   },
-  "scripts" : {
-    "start" : "node app.js"
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "express": "^4.15.0"
   }
 }
