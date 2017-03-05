@@ -1,5 +1,8 @@
+'use strict';
+
 const express = require('express');
 const app = express();
+app.set('port', process.env.PORT || 8080);
 
 app.get('/webhook', function (req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
@@ -12,6 +15,8 @@ app.get('/webhook', function (req, res) {
   } 
 });
 
-app.listen(8080, function() {
-  console.log('listening at 8080');
+app.listen(app.get('port'), function() {
+  console.log('listening at ', app.get('port'));
 });
+
+module.exports = app;
