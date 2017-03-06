@@ -54,7 +54,7 @@ app.post('/webhook', function (req, res) {
       let timeOfEvent = entry.time;
       entry.messaging.forEach(function(event) {
         if (event.message) {
-	  msgutils.receivedMessage(event);
+	  receivedMessage(event);
 	} else {
 	  console.log('Webhook received unknown event:', event);
 	}
