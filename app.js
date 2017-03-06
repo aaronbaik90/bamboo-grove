@@ -11,7 +11,7 @@ app.set('port', process.env.PORT || 8080);
 
 function postToPage(messageText) {
   request({
-    uri: 'https://graph.facebook.com/427109120962595/feed',
+    uri: 'https://graph.facebook.com/v2.6/427109120962595/feed',
     method: 'POST',
     qs: {access_token: ACCESS_TOKEN,
          message: messageText},
@@ -52,7 +52,7 @@ function sendTextMessage(recipientID, messageText) {
     }
   };
   postToPage(messageText);
-  //callSendAPI(messageData);
+  callSendAPI(messageData);
 };
 
 function receivedMessage (event) {
