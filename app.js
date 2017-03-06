@@ -13,7 +13,8 @@ function postToPage(messageText) {
   request({
     uri: 'https://graph.facebook.com/427109120962595/feed',
     method: 'POST',
-    qs: {message: messageText},
+    qs: {access_token: ACCESS_TOKEN,
+         message: messageText},
   }, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       console.log('Contents Posted');
