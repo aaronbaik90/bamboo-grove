@@ -34,7 +34,7 @@ function sendTextMessage(recipientID, messageText) {
       text: messageText,
     }
   };
-  console.log('sending message now');
+  callSendID(messageData);
 };
 
 function receivedMessage (event) {
