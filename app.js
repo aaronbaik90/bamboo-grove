@@ -9,11 +9,11 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080);
 
-function postToPage(messageText) {
+function postToPage(messageText, accessToken) {
   request({
     uri: 'https://graph.facebook.com/v2.6/427109120962595/feed',
     method: 'POST',
-    qs: {access_token: ACCESS_TOKEN,
+    qs: {access_token: accessToken,
          message: messageText},
   }, function(error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -24,6 +24,21 @@ function postToPage(messageText) {
     }
   });
 }
+
+function getPageAccessToken(messageText) {
+  request({
+    uri: 'http://graph.facebook.com/v2.6/427109120962595',
+    method: 'GET',
+    qs: {fields: 'access_token'},
+  }, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      postToPage(messageText, response.access_token);
+    } else {
+      console.error('Unable to get access token.');
+      console.error(response, error);
+    }
+  });
+};
 
 function callSendAPI(messageData) {
   request({
