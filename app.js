@@ -9,6 +9,18 @@ app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080);
 
+function postToPage(messageText) {
+  request({
+    uri: 'https://graph.facebook.com/427109120962595/feed',
+    method: 'POST',
+    qs: {message: messageText},
+  }, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      console.log('Contents Posted');
+    }
+  });
+}
+
 function callSendAPI(messageData) {
   request({
     uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -35,7 +47,8 @@ function sendTextMessage(recipientID, messageText) {
       text: messageText,
     }
   };
-  callSendAPI(messageData);
+  postToPage(messageText);
+  //callSendAPI(messageData);
 };
 
 function receivedMessage (event) {
