@@ -3,9 +3,27 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const ACCESS_TOKEN = 'EAACjktyne1cBACDlObT3uR1WUZAOqpZCv5TdaiTVYDndxs5Oh3THNYD7Lq5dZCYKNKcyYfc2sOGTRt0zjRgVZCZBz6KypZBsrpUzZAa0Igv4ZA8RCyURAXRq5sWoY3JiyGeJ9d92f0C3kLyAkVIRa8WYrzIZC8d6z1CKpWVcAu7XLUQZDZD';
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080);
+
+function callSendAPI(messageData) {
+  request({
+    uri: 'https://graph.facebook.com/v2.6/me/messages',
+    qs: { access_token: ACCESS_TOKEN},
+    method: 'POST',
+    json: messageData,
+  }, function(error, response, body) {
+    if (!error && response.statusCode === 200) {
+      let recipientId = body.recipient_id;
+      let messageId = body.message_id;
+    } else {
+      console.error('Unable to send message.');
+      console.error(response, error);
+    }
+  });
+};
 
 function sendTextMessage(recipientID, messageText) {
   let messageData = {
@@ -35,6 +53,8 @@ function receivedMessage (event) {
   }
 };
 
+
+/********** GET, POST Request Handlers ***************/
 app.get('/webhook', function (req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
       req.query['hub.verify_token'] === 'bamboo-grove') {
