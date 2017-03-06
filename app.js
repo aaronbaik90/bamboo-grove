@@ -2,12 +2,38 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const msgutilslib = require('./msgutils');
-const msgutils = msgutilslib()
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080);
+
+function sendTextMessage(recipientID, messageText) {
+  let messageData = {
+    recipient: {
+      id: recipientID,
+    },
+    message: {
+      text: messageText,
+    }
+  };
+  console.log('sending message now');
+};
+
+function receivedMessage (event) {
+  let senderID = event.sender.id;
+  let recipientID = event.recipient.id;
+  let timeOfMessage = event.timestamp;
+  let message = event.message;
+
+  let messageId = message.mid;
+  let messageText = message.text;
+  let messageAttachments = message.attachments;
+  if (messageText) {
+    sendTextMessage(senderID, messageText);
+  } else if (messageAttachments) {
+    sendTextMessage(senderID, "Message with attachment received");
+  }
+};
 
 app.get('/webhook', function (req, res) {
   if (req.query['hub.mode'] === 'subscribe' &&
