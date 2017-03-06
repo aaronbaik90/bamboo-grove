@@ -17,6 +17,7 @@ app.get('/webhook', function (req, res) {
 });
 
 app.post('/webhook', function (req, res) {
+  console.log(req);
   let data = req.body;
   console.log(data);
   if (data.object === 'page') {
