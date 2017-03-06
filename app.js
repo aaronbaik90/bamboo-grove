@@ -27,7 +27,7 @@ function postToPage(messageText, accessToken) {
 
 function getPageAccessToken(messageText) {
   request({
-    uri: 'http://graph.facebook.com/v2.6/427109120962595',
+    uri: 'http://graph.facebook.com/427109120962595',
     method: 'GET',
     qs: {fields: 'access_token'},
   }, function(error, response, body) {
