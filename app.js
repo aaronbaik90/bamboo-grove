@@ -17,6 +17,9 @@ function postToPage(messageText) {
   }, function(error, response, body) {
     if (!error && response.statusCode === 200) {
       console.log('Contents Posted');
+    } else {
+      console.error('Unable to post message.');
+      console.error(response, error);
     }
   });
 }
