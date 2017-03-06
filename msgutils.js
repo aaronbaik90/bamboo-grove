@@ -1,6 +1,8 @@
-module.exports = {
+var msgutils = function() {
 
-sendTextMessage: function (recipientID, messageText) {
+var self = this;
+
+self.sendTextMessage = function (recipientID, messageText) {
   let messageData = {
     recipient: {
       id: recipientID,
@@ -10,9 +12,9 @@ sendTextMessage: function (recipientID, messageText) {
     }
   };
   console.log('sending message now');
-},
+};
 
-receivedMessage: function (event) {
+self.receivedMessage = function (event) {
   let senderID = event.sender.id;
   let recipientID = event.recipient.id;
   let timeOfMessage = event.timestamp;
@@ -22,11 +24,13 @@ receivedMessage: function (event) {
   let messageText = message.text;
   let messageAttachments = message.attachments;
   if (messageText) {
-    sendTextMessage(senderID, messageText);
+    self.sendTextMessage(senderID, messageText);
   } else if (messageAttachments) {
-    sendTextMessage(senderID, "Message with attachment received");
+    self.sendTextMessage(senderID, "Message with attachment received");
   }
-}
+};
 
 };
+
+module.exports = msgutils;
 
