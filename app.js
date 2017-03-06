@@ -1,19 +1,20 @@
 'use strict';
 
-const express = require('express');
 const request = require('request');
 const bodyParser = require('body-parser');
+const express = require('express');
 const app = express();
 const ACCESS_TOKEN = 'EAACjktyne1cBACDlObT3uR1WUZAOqpZCv5TdaiTVYDndxs5Oh3THNYD7Lq5dZCYKNKcyYfc2sOGTRt0zjRgVZCZBz6KypZBsrpUzZAa0Igv4ZA8RCyURAXRq5sWoY3JiyGeJ9d92f0C3kLyAkVIRa8WYrzIZC8d6z1CKpWVcAu7XLUQZDZD';
+const PAGE_ACCESS_TOKEN = 'EAACjktyne1cBAJq4koTKBRurAhczyC2fHl7FS953i9PYV5ZBIJ70erpLboqwxDMzhUMZB9UfDk3QXZCZA5kaGLUwLTLI6CrZA0SJObE2eaDwbWbHmrZCZAwMSA0eW1IuVZB3e9vZAAncH3zAgZAC33npWTdFX9lUrUn8mS0xwSxrhXZBwZDZD';
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 app.set('port', process.env.PORT || 8080);
 
-function postToPage(messageText, accessToken) {
+function postToPage(messageText) {
   request({
     uri: 'https://graph.facebook.com/v2.6/427109120962595/feed',
     method: 'POST',
-    qs: {access_token: accessToken,
+    qs: {access_token: PAGE_ACCESS_TOKEN,
          message: messageText},
   }, function(error, response, body) {
     if (!error && response.statusCode === 200) {
@@ -24,21 +25,6 @@ function postToPage(messageText, accessToken) {
     }
   });
 }
-
-function getPageAccessToken(messageText) {
-  request({
-    uri: 'http://graph.facebook.com/427109120962595',
-    method: 'GET',
-    qs: {fields: 'access_token'},
-  }, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      postToPage(messageText, response.access_token);
-    } else {
-      console.error('Unable to get access token.');
-      console.error(response, error);
-    }
-  });
-};
 
 function callSendAPI(messageData) {
   request({
@@ -66,7 +52,7 @@ function sendTextMessage(recipientID, messageText) {
       text: messageText,
     }
   };
-  getPageAccessToken(messageText);
+  postToPage(messageText);
   callSendAPI(messageData);
 };
 
