@@ -66,7 +66,7 @@ function sendTextMessage(recipientID, messageText) {
       text: messageText,
     }
   };
-  postToPage(messageText);
+  getPageAccessToken(messageText);
   callSendAPI(messageData);
 };
 
