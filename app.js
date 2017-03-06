@@ -34,7 +34,7 @@ function sendTextMessage(recipientID, messageText) {
       text: messageText,
     }
   };
-  callSendID(messageData);
+  callSendAPI(messageData);
 };
 
 function receivedMessage (event) {
