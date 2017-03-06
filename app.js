@@ -2,7 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const msgutilslib = require('./msgutils.js');
+const msgutilslib = require('./msgutils');
 const msgutils = msgutilslib()
 const app = express();
 app.use(bodyParser.urlencoded({ extended: false}));
