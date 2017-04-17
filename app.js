@@ -85,6 +85,11 @@ app.get('/webhook', function (req, res) {
   } 
 });
 
+app.post('/leadtest', function (req, res) {
+    console.log(req);
+    res.sendStatus(200);
+});
+
 app.post('/webhook', function (req, res) {
   let data = req.body;
   if (data.object === 'page') {
